@@ -1,28 +1,44 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import NavBar from './components/layouts/Navbar'
+import Sidebar from './components/layouts/Sidebar'
+import Examples from './components/examples/examples';
+import Copyright from './components/layouts/Copyright'
+import ProTip from './ProTip'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+  },
+  toolbar: theme.mixins.toolbar,
+}));
+
+export default function ClippedDrawer() {
+  const classes = useStyles();
+
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  return (
+    <div className={classes.root}>
+      <CssBaseline />
+      <NavBar handleDrawerToggle={handleDrawerToggle} />
+      <Sidebar handleDrawerToggle={handleDrawerToggle} mobileOpen={mobileOpen}/>
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+
+        <Examples></Examples>
+        <ProTip />
+        <Copyright />
+      </main>
+    </div>
+  );
 }
-
-export default App;
